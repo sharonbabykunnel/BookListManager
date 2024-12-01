@@ -1,8 +1,7 @@
 import JWT from "jsonwebtoken";
-import config from "./../../config.js";
 
 const accessToken = (uid) => {
-  return JWT.sign({ uid }, config.access_secret, { expiresIn: "30s" });
+  return JWT.sign({ uid },process.env.JWT_SECRET, { expiresIn: "30s" });
 };
 
 export default accessToken;

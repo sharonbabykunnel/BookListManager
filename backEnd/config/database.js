@@ -1,9 +1,9 @@
-import config from './../../config.js'
 import mongoose from 'mongoose'
 
 const connectWithRetry = async () => {
   try {
-    const db_url = process.env.DB_RUL;
+    const db_url = process.env.DB_URL;
+    console.log(db_url, process.env.DB_URL);
         await mongoose.connect(db_url,
           {
             serverSelectionTimeoutMS: 3000,
@@ -17,6 +17,5 @@ const connectWithRetry = async () => {
     }
 }
 
-connectWithRetry();
 
-export default mongoose
+export default connectWithRetry

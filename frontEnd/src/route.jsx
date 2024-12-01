@@ -5,6 +5,7 @@ import Login from './components/auth/Login.jsx';
 import AuthLayout from './components/auth/Auth.jsx';
 import NewPassword from './components/auth/NewPassword.jsx';
 import Register from './components/auth/Register.jsx';
+import BookManagement from './components/book/BookManagement.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -14,6 +15,7 @@ const router = createBrowserRouter(
         <Route path='register' element={<Register/>} />
         <Route path='new-password' element={<NewPassword/>} />
       </Route>
+      <Route path='/' element={<BookManagement/>}/>
     </Route>
   )
 );

@@ -5,7 +5,7 @@ const bookeSchema = new mongoose.Schema({
         required: true,
         type: String,
     },
-    autor: {
+    author: {
         type: String,
         required: true
     }

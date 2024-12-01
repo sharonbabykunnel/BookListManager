@@ -1,12 +1,13 @@
+import dotenv from 'dotenv'
+dotenv.config();
+console.log("DB_URL:", process.env.DB_URL,'sdf');
 import express from 'express'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import routes from './backEnd/server.js'
 import cookieParser from 'cookie-parser'
-import './backEnd/config/database.js'
+import db from './backEnd/config/database.js'
 
-dotenv.config();
-
+db()
 const app = express();
 
 app.use(cookieParser());

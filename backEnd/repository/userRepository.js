@@ -14,6 +14,19 @@ class UserRepository {
     return await User.findOne({ email });
   }
 
+  async changePassword(email, password) {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const updatedUser = await User.findOneAndUpdate(
+      { email }, 
+      { password: hashedPassword }, 
+      { new: true }
+    );
+    console.log(updatedUser,'checking')
+    return updatedUser;
+  }
+
 }
 
 export default new UserRepository();

@@ -1,9 +1,9 @@
 import express from 'express'
-import user from '../Controllers/bookController.js'
+import * as books from '../Controllers/bookController.js'
 const rout = express.Router();
 
-rout.get("/books",  user.getUser);
-rout.post("/books",  user.getUser);
+rout.get("/",  books.getBooks);
+rout.post("/", books.postBooks);
 
 
 export default rout;

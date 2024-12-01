@@ -11,12 +11,13 @@ const NewPassword = ()=>{
     const [showConfirm,setShowConfirm] = useState(false);
     const formik = useFormik({
         initialValues:{
+            email:'',
             newPassword:'',
             confirmPassword:''
         },
         validationSchema:passwordSchema,
         onSubmit: async (values)=>{
-            const result = await setNewPasswordApi({password:values.newPassword})
+            const result = await setNewPasswordApi({password:values.newPassword,email:values.email})
             if(result.success){
                 navigate('/auth/login');
             }
@@ -44,7 +45,7 @@ return (
                     <div className="space-y-5">
                         <div>
                         <div className="flex items-center justify-between">
-                                <label className="text-base font-medium text-gray-900"> New Password </label>
+                                <label className="text-base font-medium text-gray-900">Email</label>
 
                                 <Link to='/auth/login' title="" className="text-sm font-medium transition-all duration-200 text-rose-500 hover:text-rose-600 focus:text-rose-600 hover:underline"> Login </Link>
                             </div>

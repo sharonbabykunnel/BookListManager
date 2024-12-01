@@ -5,7 +5,7 @@ import {
   NotFoundError,
   AuthenticationError,
   ConflictError,
-} from "./../utils/errors/index.js";
+} from "./../utils/errorHandler.js";
 
 export const login = async (email, password) => {
   // Find user
@@ -58,3 +58,14 @@ export const register = async (name, email, password) => {
     accessToken,
   };
 };
+
+export const setPassword = async (email, password) => {
+  //Checking email is exist
+  const existingUser = await User.findByEmail(email);
+  if (!existingUser) {
+    throw new NotFoundError('Email is not exists');
+  }
+  const updatedUser = await User.changePassword(email, password);
+
+  return updatedUser;
+}

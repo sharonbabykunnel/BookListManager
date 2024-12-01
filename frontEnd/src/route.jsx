@@ -15,6 +15,7 @@ const router = createBrowserRouter(
         <Route path='register' element={<Register/>} />
         <Route path='new-password' element={<NewPassword/>} />
       </Route>
+      <Route path='/checking' element={<div>checking</div>} />
       <Route index element={<BookManagement/>}/>
     </Route>
   )

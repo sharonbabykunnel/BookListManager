@@ -10,12 +10,12 @@ import BookManagement from './components/book/BookManagement.jsx';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />} errorElement={<ErrorScreen />}>
-      <Route path='auth' element={<AuthLayout />} >
+      <Route path='/auth' element={<AuthLayout />} >
         <Route path='login' element={<Login/>} />
         <Route path='register' element={<Register/>} />
         <Route path='new-password' element={<NewPassword/>} />
       </Route>
-      <Route path='/' element={<BookManagement/>}/>
+      <Route index element={<BookManagement/>}/>
     </Route>
   )
 );

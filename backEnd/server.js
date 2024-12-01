@@ -5,7 +5,7 @@ import globalErrorHandler from './Controllers/errorController.js'
 
 const router = express.Router();
 
-router.use("/", auth);
+router.use("/v1/auth", auth);
 router.use("/books", books);
 router.all('*')
 

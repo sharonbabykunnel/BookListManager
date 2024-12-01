@@ -1,16 +1,19 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import App from './App.jsx';
-import AdminRoutes from './AdminRoutes.jsx';
-import UserRoutes from './UserRoutes.jsx';
-import PublicRoutes from './PublicRoutes.jsx';
 import ErrorScreen from './screen/ErrorScreen.jsx';
+import Login from './components/auth/Login.jsx';
+import AuthLayout from './components/auth/Auth.jsx';
+import NewPassword from './components/auth/NewPassword.jsx';
+import Register from './components/auth/Register.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />} errorElement={<ErrorScreen />}>
-      {PublicRoutes}
-      {UserRoutes}
-      {AdminRoutes}
+      <Route path='auth' element={<AuthLayout />} >
+        <Route path='login' element={<Login/>} />
+        <Route path='register' element={<Register/>} />
+        <Route path='new-password' element={<NewPassword/>} />
+      </Route>
     </Route>
   )
 );

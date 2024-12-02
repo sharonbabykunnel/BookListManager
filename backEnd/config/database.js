@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 
+// Data Base connection with aotomatic retry
 const connectWithRetry = async () => {
   try {
     const db_url = process.env.DB_URL;

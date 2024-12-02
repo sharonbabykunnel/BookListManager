@@ -65,6 +65,7 @@ export const setPassword = async (email, password) => {
   if (!existingUser) {
     throw new NotFoundError('Email is not exists');
   }
+  // Updating the password
   const updatedUser = await User.changePassword(email, password);
 
   return updatedUser;

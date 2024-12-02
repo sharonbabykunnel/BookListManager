@@ -6,17 +6,22 @@ import AuthLayout from './components/auth/Auth.jsx';
 import NewPassword from './components/auth/NewPassword.jsx';
 import Register from './components/auth/Register.jsx';
 import BookManagement from './components/book/BookManagement.jsx';
+import PrivatePages from './components/middlewares/PrivatePages.jsx';
+import PublicPages from './components/middlewares/PublicPages.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />} errorElement={<ErrorScreen />}>
-      <Route path='/auth' element={<AuthLayout />} >
-        <Route path='login' element={<Login/>} />
-        <Route path='register' element={<Register/>} />
-        <Route path='new-password' element={<NewPassword/>} />
+      <Route element={<PrivatePages/>} >
+        <Route path='/' element={<BookManagement/>}/>
       </Route>
-      <Route path='/checking' element={<div>checking</div>} />
-      <Route index element={<BookManagement/>}/>
+      <Route element={<PublicPages/>} >
+        <Route  element={<AuthLayout />} >
+          <Route index path='login' element={<Login/>} />
+          <Route path='register' element={<Register/>} />
+          <Route path='new-password' element={<NewPassword/>} />
+        </Route>
+      </Route>
     </Route>
   )
 );

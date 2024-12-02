@@ -2,9 +2,17 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import * as bookService from '../service/book.service.js';
 
 export const getBooks = asyncHandler(async (req, res) => {
-    const books = await bookService.getBooks();
-    res.status(200).json({ message: 'Success', success: true, books });
- })
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+
+  const result = await bookService.getBooks(page, limit);
+
+  res.status(200).json({
+    message: "Success",
+    success: true,
+    ...result,
+  });
+});
 
 export const postBooks = asyncHandler(async (req, res) => {
     const { title, author } = req.body;

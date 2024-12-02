@@ -9,9 +9,9 @@ Modal.setAppElement('#root');
 
 function App() {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative max-h-screen">
       <ToastContainer />
-      <div className="main-content">
+      <div >
         <Outlet />
       </div>
     </div>

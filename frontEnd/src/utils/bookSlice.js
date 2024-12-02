@@ -4,18 +4,15 @@ import { createBook, getAllBooks } from "../apis";
 // Async thunk for fetching books
 export const fetchBooks = createAsyncThunk(
   "books/fetchBooks",
-  async (_, { rejectWithValue }) => {
+  async ({ page = 1, limit = 10 }, { rejectWithValue }) => {
     try {
-      // Simulate API call - replace with actual API endpoint
-        const response = await getAllBooks();
+      const response = await getAllBooks(page, limit);
 
-        if (!response.success) {
-            throw new Error("Failed to fetch books");
-        }
-        console.log(response,'sfdoahsof')
-      return response.books;
+      if (!response.success) {
+        throw new Error("Failed to fetch books");
+      }
+      return response;
     } catch (error) {
-        console.log('aoisof')
       return rejectWithValue([]);
     }
   }
@@ -47,23 +44,36 @@ const bookSlice = createSlice({
   name: "books",
   initialState: {
     items: [],
-    status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+    status: "idle",
     error: null,
+    pagination: {
+      currentPage: 1,
+      totalPages: 0,
+      totalBooks: 0,
+      limit: 10,
+    },
   },
-  reducers: {},
+  reducers: {
+    setCurrentPage: (state, action) => {
+      state.pagination.currentPage = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // Fetch Books Reducers
     builder.addCase(fetchBooks.pending, (state) => {
       state.status = "loading";
     });
-    builder.addCase(fetchBooks.fulfilled, (state, action) => {
-      state.status = "succeeded";
-      state.items = action.payload;
-    });
     builder.addCase(fetchBooks.rejected, (state, action) => {
       state.status = "failed";
       state.items = action.payload || [];
       state.error = action.error.message;
+    });
+    builder.addCase(fetchBooks.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.items = action.payload.books;
+      state.pagination.currentPage = action.payload.currentPage;
+      state.pagination.totalPages = action.payload.totalPages;
+      state.pagination.totalBooks = action.payload.totalBooks;
     });
 
     // Add Book Reducers
@@ -81,5 +91,7 @@ const bookSlice = createSlice({
     });
   },
 });
+
+export const { setCurrentPage } = bookSlice.actions;
 
 export default bookSlice.reducer;

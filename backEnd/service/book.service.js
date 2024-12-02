@@ -13,7 +13,7 @@ export const createBook = async (title, author) => {
     return newBook;
 }
 
-export const getBooks = async () => {
-    const books = await Books.find();
-    return books
-}
+export const getBooks = async (page = 1, limit = 10) => {
+  const result = await Books.find(page, limit);
+  return result;
+};

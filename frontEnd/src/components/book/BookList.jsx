@@ -1,59 +1,54 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchBooks, addBook } from '../../utils/bookSlice';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBooks, setCurrentPage } from "../../utils/bookSlice";
 import { 
-    Container, 
-    Typography, 
-    Card, 
-    CardContent, 
-    CardHeader, 
-    TextField, 
-    Button, 
-    List, 
-    ListItem, 
-    ListItemText, 
-    Box, 
-    Alert 
-  } from '@mui/material';
-import { useEffect } from 'react';
-
+  Typography, 
+  Card, 
+  CardContent, 
+  CardHeader,
+  List, 
+  ListItem, 
+  ListItemText, 
+  Box, 
+  Alert,
+  Pagination, 
+} from '@mui/material';
 
 const BookList = () => {
-    const dispatch = useDispatch();
-    const { items: books, status, error } = useSelector((state) => state.books);
-  
-    useEffect(() => {
-        // Fetch books when component mounts
-        dispatch(fetchBooks());
-      }, [dispatch]);
-    
-      if (status === 'loading') {
-        return (
-          <Box display="flex" justifyContent="center" alignItems="center" padding={2}>
-            <Typography>Loading books...</Typography>
-          </Box>
-        );
-      }
+  const dispatch = useDispatch();
+  const { items: books, status, pagination } = useSelector((state) => state.books);
 
-    //   if (status === 'failed') {
-    //     return (
-    //       <Alert severity="error">
-    //         Error: {error}
-    //       </Alert>
-    //     );
-    //   }
-  
-    return (
-      <Card sx={{ maxWidth: 500, margin: 'auto' }}>
-        <CardHeader title="Book Collection" />
-        <CardContent>
-          {books.length === 0 ? (
-            <Typography align="center" color="textSecondary">
-              No books in the collection.
-            </Typography>
-          ) : (
-            <List>
+  useEffect(() => {
+    dispatch(fetchBooks({
+      page: pagination.currentPage,
+      limit: pagination.limit
+    }));
+  }, [dispatch, pagination.currentPage]);
+
+  const handlePageChange = (event, value) => {
+    dispatch(setCurrentPage(value));
+  };
+
+  return (
+    <Card variant="outlined">
+      <CardHeader 
+        title="Book Collection" 
+        titleTypographyProps={{ variant: 'h6' }}
+      />
+      <CardContent>
+        {status === 'loading' ? (
+          <Typography variant="body1" color="textSecondary" align="center">
+            Loading books...
+          </Typography>
+        ) : books.length === 0 ? (
+          <Alert severity="info">
+            No books in the collection. Start adding some!
+          </Alert>
+        ) : (
+          <>
+            <List className=" overflow-scroll h-[30vh] md:h-[66vh] scrollbar-hide">
               {books.map((book) => (
-                <ListItem key={book.id} divider>
+                <ListItem key={book._id} divider>
                   <ListItemText
                     primary={book.title}
                     secondary={`by ${book.author}`}
@@ -61,10 +56,23 @@ const BookList = () => {
                 </ListItem>
               ))}
             </List>
-          )}
-        </CardContent>
-      </Card>
-    );
-  };
+            {pagination.totalBooks > pagination.limit && (
+              <Box display="flex" justifyContent="center" mt={2}>
+                <Pagination
+                  count={pagination.totalPages}
+                  page={pagination.currentPage}
+                  onChange={handlePageChange}
+                  color="primary"
+                  variant="outlined"
+                  shape="rounded"
+                />
+              </Box>
+            )}
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
 
 export default BookList

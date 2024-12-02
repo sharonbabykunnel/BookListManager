@@ -19,7 +19,7 @@ const NewPassword = ()=>{
         onSubmit: async (values)=>{
             const result = await setNewPasswordApi({password:values.newPassword,email:values.email})
             if(result.success){
-                navigate('/auth/login');
+                navigate('/login');
             }
         }
     })
@@ -47,7 +47,7 @@ return (
                         <div className="flex items-center justify-between">
                                 <label className="text-base font-medium text-gray-900">Email</label>
 
-                                <Link to='/auth/login' title="" className="text-sm font-medium transition-all duration-200 text-rose-500 hover:text-rose-600 focus:text-rose-600 hover:underline"> Login </Link>
+                                <Link to='/login' title="" className="text-sm font-medium transition-all duration-200 text-rose-500 hover:text-rose-600 focus:text-rose-600 hover:underline"> Login </Link>
                             </div>
                             <div className="mt-2.5">
                                 <input {...formik.getFieldProps('email')} type="text" name="email" id="" placeholder="Enter email to get started" className="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" />

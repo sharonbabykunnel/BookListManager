@@ -5,10 +5,13 @@ import { EyeSlashIcon, LockClosedIcon } from "@heroicons/react/16/solid"
 import { EyeIcon } from "@heroicons/react/20/solid"
 import { useState } from "react"
 import { userSchema } from "../../schema"
+import { setCredentials } from "../../utils/userSlice"
+import { useDispatch } from "react-redux"
 
 const Register = () => {
     const [show, setShow] = useState(false)
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const formik = useFormik({
         initialValues:{
             name:'',
@@ -20,6 +23,8 @@ const Register = () => {
             console.log(values,'values');
             const result = await registerApi(values);
             if(result){
+                localStorage.setItem('accessToken',result.accessToken)
+                dispatch(setCredentials(result.user));
                 navigate('/');
             }
         }
@@ -43,7 +48,7 @@ const Register = () => {
                     <div>
                     <div className="flex items-center justify-between">
                             <label for="" className="text-base font-medium text-gray-900"> Name </label>
-                            <Link to='/auth/login' className="text-sm font-medium transition-all duration-200 text-blue-500 hover:text-blue-600 focus:text-blue-600 hover:underline" >allready have a account? Login</Link>
+                            <Link to='/login' className="text-sm font-medium transition-all duration-200 text-blue-500 hover:text-blue-600 focus:text-blue-600 hover:underline" >allready have a account? Login</Link>
                         </div>
                             <div className="mt-2.5">
                                 <input {...formik.getFieldProps('name')} type="text" name="name" id="" placeholder="Enter your full name" className="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" />
@@ -54,7 +59,7 @@ const Register = () => {
                         </div>
 
                         <div>
-                            <label foFr="" className="text-base font-medium text-gray-900"> Email address </label>
+                            <label className="text-base font-medium text-gray-900"> Email address </label>
                             <div className="mt-2.5">
                                 <input {...formik.getFieldProps('email')} type="text" name="email" id="" placeholder="Enter email to get started" className="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" />
                             </div>

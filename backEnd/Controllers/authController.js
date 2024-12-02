@@ -15,7 +15,7 @@ const register = asyncHandler(async (req, res) => {
 });
 
 const logout = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "User logged out", success: true });
+  res.status(200).json({ message: "User logged out", success: true, user:null });
 });
 
 const setPassword = asyncHandler(async (req, res) => {

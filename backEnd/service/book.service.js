@@ -6,10 +6,8 @@ export const createBook = async (title, author) => {
     if (checkTheBook) {
         throw new ConflictError('Book is all ready added')
     }
-    console.log(checkTheBook,'wer')
 
     const newBook = await Books.createBook(title, author);
-    console.log(newBook)
     return newBook;
 }
 

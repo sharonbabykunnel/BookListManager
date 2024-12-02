@@ -23,7 +23,6 @@ class UserRepository {
       { password: hashedPassword }, 
       { new: true }
     );
-    console.log(updatedUser,'checking')
     return updatedUser;
   }
 

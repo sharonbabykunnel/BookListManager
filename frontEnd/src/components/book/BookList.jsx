@@ -48,7 +48,7 @@ const BookList = () => {
           <>
             <List className=" overflow-scroll h-[30vh] md:h-[66vh] scrollbar-hide">
               {books.map((book) => (
-                <ListItem key={book._id} divider>
+                <ListItem key={book._id || book.title} divider>
                   <ListItemText
                     primary={book.title}
                     secondary={`by ${book.author}`}

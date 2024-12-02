@@ -7,7 +7,7 @@ const ErrorScreen = () => {
     <div className=' error-container'>
       <h1>Opps! Somthing went wrong.</h1>
       <p>{error.message || "An error occured."}</p>
-      <Link to='/home'>Go to Home</Link>
+      <Link to='/'>Go to Home</Link>
     </div>
   )
 }

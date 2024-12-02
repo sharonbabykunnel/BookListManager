@@ -16,8 +16,6 @@ export const getBooks = asyncHandler(async (req, res) => {
 
 export const postBooks = asyncHandler(async (req, res) => {
     const { title, author } = req.body;
-    console.log(title, author, 'cheking')
     const book = await bookService.createBook(title, author);
-    console.log('book',book)
     res.status(200).json({ message: 'Book added successfully', success: true, book })
 });

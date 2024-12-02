@@ -9,7 +9,6 @@ const login = asyncHandler(async (req, res) => {
 
 const register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
-  console.log(name,email,password,'oiwodifosj')
   const { user, accessToken } = await authService.register(name, email, password)
   res.status(201).json({ user, accessToken, message:'Registration Completed',success:true });
 });
@@ -20,7 +19,6 @@ const logout = asyncHandler(async (req, res) => {
 
 const setPassword = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password)
   const response = await authService.setPassword(email, password);
   if (response) {
     res.status(200).json({ message: 'Password updated.', success: true });

@@ -10,7 +10,7 @@ export const find = async (page = 1, limit = 10) => {
   const totalBooks = await Book.countDocuments();
   const totalPages = Math.ceil(totalBooks / limit);
 
-  const books = await Book.find().skip(skip).limit(limit);
+  const books = await Book.find().sort({_id:-1}).skip(skip).limit(limit);
 
   return {
     books,

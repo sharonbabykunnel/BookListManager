@@ -86,7 +86,7 @@ const bookSlice = createSlice({
     });
     builder.addCase(addBook.rejected, (state, action) => {
       state.status = "failed";
-      state.items.push(action.payload);
+      state.items.unshift(action.payload);
       state.error = action.error.message;
     });
   },

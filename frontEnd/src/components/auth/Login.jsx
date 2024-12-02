@@ -19,9 +19,7 @@ const Login = () => {
         },
         validationSchema:loginSchema,
         onSubmit: async(values)=>{
-            console.log(values,'values');
             const result = await loginApi(values);
-            console.log(result)
             if(result){
                 dispatch(setCredentials(result.user))
                 navigate('/');

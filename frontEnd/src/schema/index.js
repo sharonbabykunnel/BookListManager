@@ -30,6 +30,9 @@ export const loginSchema = Yup.object().shape({
 });
 
 export const passwordSchema = Yup.object({
+  email: trimmedString
+    .email("Invalid email address")
+    .required("Email is required"),
   newPassword: Yup.string()
     .required("password is required")
     .min(8, "password must be at leaset 8 characters")

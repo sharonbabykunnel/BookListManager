@@ -20,7 +20,6 @@ const Register = () => {
         },
         validationSchema:userSchema,
         onSubmit: async(values)=>{
-            console.log(values,'values');
             const result = await registerApi(values);
             if(result){
                 localStorage.setItem('accessToken',result.accessToken)

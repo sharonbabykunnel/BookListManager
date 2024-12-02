@@ -13,7 +13,6 @@ const checkAccessToken = asyncHandler(async (req, res, next) => {
       req.user = user;
       next();
     } catch (verifyError) {
-      console.log(verifyError)
       if (verifyError.name === "TokenExpiredError") {
         return res.status(401).json({
           message: "Token expired",

@@ -5,12 +5,9 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "",
-    "back": "nodemon app.js",
-    "front": "npm run dev --prefix front",
-    "dev": "concurrently \"npm run front\" \"npm run back\"",
-    "build": "npm run build --prefix front"
+    "dev": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",

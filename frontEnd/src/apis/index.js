@@ -13,7 +13,7 @@ const apiRequest = async (method, url, data, headers = {}) => {
         headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await axios({ method, url: backend + url, data, headers: { ...headers }, });
+    const response = await axios({ method, url: backend + '/api' + url, data, headers: { ...headers }, });
 
     return response.data;
   } catch (error) {

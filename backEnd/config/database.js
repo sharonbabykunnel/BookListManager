@@ -10,7 +10,6 @@ const connectWithRetry = async () => {
             socketTimeoutMS: 45000,
           }
         );
-    console.log("Connected to MongoDB")
     } catch (error) {
         console.error("Error Connectin to MongoDB", error)
         setTimeout(connectWithRetry,5000)
